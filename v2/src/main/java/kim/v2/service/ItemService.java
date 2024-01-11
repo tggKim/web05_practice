@@ -1,14 +1,39 @@
 package kim.v2.service;
 
 import kim.v2.repository.Item;
+import kim.v2.repository.ItemRepository;
+import kim.v2.repository.MemoryItemRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ItemService {
-    public Item saveItem(Item item);
-    public Item findItem(Long id);
-    public List<Item> findAllItems();
-    public Item updateItem(Long id,Item updateItem);
-    public void deleteItem(Long id);
-    public void deleteAllItems();
+@Service
+@RequiredArgsConstructor
+public class ItemService {
+    private final ItemRepository itemRepository;
+    public Item saveItem(Item item) {
+        return itemRepository.save(item);
+    }
+
+    public Item findItem(Long id) {
+        return itemRepository.findById(id);
+    }
+
+
+    public List<Item> findAllItems() {
+        return itemRepository.findAll();
+    }
+
+    public Item updateItem(Long id, Item updateItem) {
+        return itemRepository.update(id,updateItem);
+    }
+
+    public void deleteItem(Long id) {
+        itemRepository.delete(id);
+    }
+
+    public void deleteAllItems() {
+        itemRepository.clear();
+    }
 }
